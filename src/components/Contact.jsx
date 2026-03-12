@@ -7,6 +7,12 @@ import { slideIn } from "../utils/motion";
 import {EarthCanvas} from './canvas'
 import SectionWrapper from "../hoc/SectionWrapper";
 
+const serviceId = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const templateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const publicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
+const to_email= import.meta.env.VITE_CONTACT_EMAIL;
+const to_name= import.meta.env.VITE_CONTACT_NAME;
+
 const Contact = () => {
   const formRef = useRef();
   const [form, setForm] = useState({
@@ -22,20 +28,17 @@ const Contact = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
-      // APxLJkiPZDhMc_cR9
-      // template_yg3tifp
-      // service_bmi734o
     emailjs.send(
-      'service_bmi734o', 
-      'template_yg3tifp',
+      serviceId, 
+      templateId,
       {
         form_name: form.name,
-        to_name: 'Sanskriti',
+        to_name: to_name,
         from_email: form.email,
-        to_email: 'sanskritigupta174@gmail.com',
+        to_email: to_email,
         message: form.message
       },
-      'APxLJkiPZDhMc_cR9'
+      publicKey
     )
     .then(() => {
       setLoading(false);
